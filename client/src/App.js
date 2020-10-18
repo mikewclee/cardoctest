@@ -7,6 +7,9 @@ import Register from "./components/auth/Register";
 import UserContext from "./context/UserContext";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home";
+import Saved from "./pages/Saved";
+import car from "./components/assets/porsche.jpg";
+import Contact from "./pages/Contact";
 
 import "./App.css";
 
@@ -48,11 +51,13 @@ export default function App() {
       <BrowserRouter>
         <UserContext.Provider value={{ userData, setUserData }}>
           <Header />
-          <div className="container">
+          <div className="container" styles={{ backgroundImage:`url(${car})` }}>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
+              <Route exact path="/Saved" component={Saved} />
+              <Route exact path="/Contact" component={Contact} />
               <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
             </Switch>
           </div>
         </UserContext.Provider>

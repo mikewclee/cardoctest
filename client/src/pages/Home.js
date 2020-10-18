@@ -55,16 +55,17 @@ export default function Home() {
     // savebook to dbase
     console.log("OnClick saveVinSelection--results: " + vin[0].VIN);
     API.saveVin({
-      _id: vin.id,
       vin: vin[0].VIN,
       make: vin[0].Make,
       model: vin[0].Model,
-      ModelYear: vin[0].ModelYear,
+      modelYear: vin[0].ModelYear,
+      engineModel: vin[0].EngineModel,
       engineHp: vin[0].EngineHP,
+      engineCylinders: vin[0].EngineCylinders,
       fuelInjection: vin[0].FuelInjectionType,
     })
-      .then(res => loadVin())
-      // .then(res.send('Saved to dbase'))
+      // .then(res => loadVin())
+      .then(res => console.log('Saved to dbase'))
       .catch(err => console.log(err));
   };
 
@@ -79,7 +80,7 @@ export default function Home() {
   }
   return (
     <div className="page">
-            {userData.user ? (
+      {userData.user ? (
         <h1>Welcome {userData.user.displayName}
           <Clock /> </h1>
       ) : (
@@ -89,29 +90,39 @@ export default function Home() {
             {/* <Clock /> */}
           </>
         )}
-
       <Hero backgroundImage={porsche}>
         <img className="cardoclogo" src={logo} alt={"logo"} style={{ height: 120, flex: 1, width: undefined, padding: 0 }} />
         <h2 className="hometitle">For your auto parts and modifications needs.</h2>
       </Hero>
       <Container>
+
         <Row>
-          <Col size="xs-9 md-12">
-            {/* <form> */}
-              <Input
-                onChange={handleInputChange}
-                name="search"
-                placeholder="Search car VIN..."
-              />
-              <FormBtn
-                disabled={!(formObject.search)}
-                onClick={handleFormSubmit}
-              >
-                VIN Search
-              </FormBtn>
-            {/* </form> */}
+          <Col size="md-12">
+            <form>
+              <Container>
+                <Row>
+                  <Col size="xs-9 sm-10">
+                    <Input style={{ height: 50, width: "60%", borderColor: 'grey', borderWidth: 1, borderRadius: 10, margin: 10, fontSize: 15 }}
+                      onChange={handleInputChange}
+                      name="search"
+                      placeholder="  Enter Car VIN  "
+                    />
+                  </Col>
+                  <Col size="xs-3 sm-9">
+                    <button style={{ fontsize: 10, padding: 10, borderradius: 5, borderWidth: 1, margin: 5, backgroundColor: 'grey', }}
+                      disabled={!(formObject.search)}
+                      onClick={handleFormSubmit}
+                      type="light"
+                    >
+                      VIN Search
+                  </button>
+                  </Col>
+                </Row>
+              </Container>
+            </form>
           </Col>
         </Row>
+
         <Row>
           <Col size="xs-12 sm-12">
             {vin.length ? (
